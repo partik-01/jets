@@ -1,0 +1,127 @@
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    --background: #F7F4ED;
+    --background-alt: #F2EFE8;
+    --foreground: #1A2E4C;
+    --primary: #203A5F;
+    --primary-foreground: #F7F4ED;
+    --accent: #C89B3C;
+    --accent-foreground: #1A2E4C;
+    --muted: #8A9BB0;
+    --muted-foreground: #4B5E78;
+    --border: #E6E1D3;
+    --card: #FDFCF9;
+    --card-foreground: #1A2E4C;
+    
+    --font-heading: 'Playfair Display', Georgia, serif;
+    --font-body: 'Inter', system-ui, sans-serif;
+  }
+
+  .dark {
+    --background: #0F1319;
+    --background-alt: #161C24;
+    --foreground: #E2E8F0;
+    --primary: #8AB4F8;
+    --primary-foreground: #0F1319;
+    --accent: #F4C462;
+    --accent-foreground: #0F1319;
+    --muted: #4B5E78;
+    --muted-foreground: #8A9BB0;
+    --border: #232D39;
+    --card: #131821;
+    --card-foreground: #E2E8F0;
+  }
+}
+
+@theme {
+  --color-background: var(--background);
+  --color-background-alt: var(--background-alt);
+  --color-foreground: var(--foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-border: var(--border);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+
+  --font-heading: var(--font-heading);
+  --font-body: var(--font-body);
+}
+
+body {
+  background-color: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-body);
+  overflow-x: hidden;
+  transition: background-color 0.5s ease, color 0.5s ease;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-heading);
+}
+
+/* Custom premium scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--background-alt);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--muted);
+}
+
+/* Float animation for the 3D aircraft models and hero overlays */
+@keyframes float {
+  0% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-12px);
+  }
+  100% {
+    transform: translateY(0px);
+  }
+}
+
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+
+/* Subtle fade and zoom keyframes */
+@keyframes fade-in-up {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in-up {
+  animation: fade-in-up 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Spot light styling for R3F backgrounds */
+.museum-spotlight {
+  background: radial-gradient(circle at 50% 30%, rgba(200, 155, 60, 0.15) 0%, rgba(247, 244, 237, 0) 70%);
+}
+
+.dark .museum-spotlight {
+  background: radial-gradient(circle at 50% 30%, rgba(244, 196, 98, 0.08) 0%, rgba(15, 19, 25, 0) 75%);
+}
