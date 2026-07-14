@@ -1,65 +1,21 @@
-import Image from "next/image";
+import Link from 'next/link';
+import { ArrowRight, Compass, Crosshair, MoveRight } from 'lucide-react';
+import AircraftArt from '@/components/AircraftArt';
+import { aircraft, categories } from '@/lib/aircraft-data';
 
 export default function Home() {
-  return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
-      </main>
-    </div>
-  );
+  const featured = aircraft.slice(0, 3);
+  return <>
+    <section className="relative isolate overflow-hidden bg-slate-950 px-6 py-24 text-white sm:py-32">
+      <div className="absolute inset-0 opacity-40" style={{ backgroundImage: 'linear-gradient(rgba(255,255,255,.06) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.06) 1px,transparent 1px)', backgroundSize: '64px 64px' }} />
+      <div className="absolute right-[10%] top-8 h-80 w-80 rounded-full bg-sky-400/20 blur-3xl" />
+      <div className="relative mx-auto grid max-w-7xl items-center gap-12 lg:grid-cols-[1fr_.9fr]">
+        <div className="max-w-2xl"><p className="mb-5 flex items-center gap-2 font-mono text-xs tracking-[.25em] text-amber-300"><Crosshair className="h-3 w-3" /> DIGITAL FLIGHT ARCHIVE / EST. 2026</p><h1 className="font-heading text-5xl leading-[.94] sm:text-7xl">Every aircraft has a story written in the sky.</h1><p className="mt-7 max-w-xl text-lg leading-8 text-slate-300">Explore the engineering, people, and pivotal moments behind the machines that changed aviation.</p><div className="mt-9 flex flex-wrap gap-4"><Link href="/aircraft" className="inline-flex items-center gap-2 rounded-full bg-amber-400 px-5 py-3 text-sm font-bold text-slate-950 transition hover:bg-amber-300">Explore exhibits <ArrowRight className="h-4 w-4" /></Link><Link href="/timeline" className="inline-flex items-center gap-2 rounded-full border border-white/20 px-5 py-3 text-sm font-medium hover:bg-white/10">View chronology</Link></div></div>
+        <div className="relative mx-auto h-[300px] w-full max-w-xl animate-float rounded-[2rem] border border-white/10 bg-gradient-to-br from-slate-700/70 to-slate-950 shadow-2xl sm:h-[380px]"><AircraftArt item={aircraft[0]} className="h-full rounded-[2rem]" /><div className="absolute bottom-5 right-5 rounded-xl border border-white/10 bg-slate-950/80 px-4 py-3 backdrop-blur"><p className="font-mono text-[10px] tracking-widest text-amber-300">FEATURED EXHIBIT</p><p className="font-heading text-xl">F-22 Raptor</p></div></div>
+      </div>
+    </section>
+    <section className="mx-auto w-full max-w-7xl px-6 py-20"><div className="mb-9 flex items-end justify-between gap-6"><div><p className="font-mono text-xs tracking-[.2em] text-accent">CURATED COLLECTION</p><h2 className="mt-2 font-heading text-4xl">Defining aircraft</h2></div><Link href="/aircraft" className="hidden items-center gap-1 text-sm font-medium text-primary hover:text-accent sm:flex">All exhibits <MoveRight className="h-4 w-4" /></Link></div><div className="grid gap-5 md:grid-cols-3">{featured.map((item) => <Link href={`/aircraft/${item.slug}`} key={item.slug} className="group overflow-hidden rounded-2xl border border-border bg-card shadow-sm transition hover:-translate-y-1 hover:shadow-xl"><AircraftArt item={item} className="h-48" /><div className="p-5"><p className="font-mono text-[10px] tracking-widest text-accent">{item.introductionYear} · {item.country}</p><h3 className="mt-2 font-heading text-2xl group-hover:text-accent">{item.name}</h3><p className="mt-2 text-sm text-muted-foreground">{item.role}</p></div></Link>)}</div></section>
+    <section className="border-y border-border bg-background-alt/60 px-6 py-20"><div className="mx-auto max-w-7xl"><p className="font-mono text-xs tracking-[.2em] text-accent">EXPLORE BY PURPOSE</p><div className="mt-7 grid gap-3 sm:grid-cols-2 lg:grid-cols-5">{categories.map((category) => <Link key={category.slug} href={`/aircraft?category=${category.slug}`} className="rounded-xl border border-border bg-card p-5 transition hover:border-accent hover:bg-background"><Compass className="h-5 w-5 text-accent" /><h3 className="mt-5 font-heading text-xl">{category.name}</h3><p className="mt-1 text-sm text-muted-foreground">{category.description}</p><p className="mt-4 font-mono text-xs text-primary">{category.count} EXHIBITS</p></Link>)}</div></div></section>
+    <section className="mx-auto max-w-7xl px-6 py-20"><div className="rounded-2xl bg-primary px-7 py-10 text-primary-foreground sm:px-12"><p className="font-mono text-xs tracking-[.2em] text-accent">THE LONG VIEW</p><h2 className="mt-3 max-w-2xl font-heading text-4xl">Trace a century of innovation, one landmark flight at a time.</h2><Link href="/timeline" className="mt-7 inline-flex items-center gap-2 text-sm font-bold text-accent hover:text-white">Open the timeline <ArrowRight className="h-4 w-4" /></Link></div></section>
+  </>;
 }

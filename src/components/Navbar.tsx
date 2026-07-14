@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useTheme } from 'next-themes';
-import { Search, Sun, Moon, Database, Menu, X, Landmark, RefreshCw } from 'lucide-react';
+import { Search, Sun, Moon, Database, Menu, X, Landmark } from 'lucide-react';
 import { useSearchStore } from '@/lib/store';
 
 export default function Navbar() {
@@ -16,12 +16,14 @@ export default function Navbar() {
 
   // Avoid hydration mismatch by waiting for mount
   useEffect(() => {
-    setMounted(true);
+    const timer = window.setTimeout(() => setMounted(true), 0);
+    return () => window.clearTimeout(timer);
   }, []);
 
   // Close mobile menu on path changes
   useEffect(() => {
-    setMobileMenuOpen(false);
+    const timer = window.setTimeout(() => setMobileMenuOpen(false), 0);
+    return () => window.clearTimeout(timer);
   }, [pathname]);
 
   const navLinks = [

@@ -58,8 +58,8 @@ export default function Footer() {
               Curator Notes
             </h4>
             <p className="text-xs italic text-muted-foreground leading-relaxed">
-              "Once you have tasted flight, you will forever walk the earth with your eyes turned skyward,
-              for there you have been, and there you will always long to return."
+              &ldquo;Once you have tasted flight, you will forever walk the earth with your eyes turned skyward,
+              for there you have been, and there you will always long to return.&rdquo;
               <span className="block mt-1 font-sans not-italic font-medium text-accent">— Leonardo da Vinci</span>
             </p>
           </div>

@@ -1,0 +1,9 @@
+import Link from 'next/link';
+import AircraftArt from '@/components/AircraftArt';
+import { aircraft, categories, titleCase } from '@/lib/aircraft-data';
+
+export default async function AircraftIndex({ searchParams }: { searchParams: Promise<{ category?: string }> }) {
+  const { category } = await searchParams;
+  const exhibits = category ? aircraft.filter((item) => item.category === category) : aircraft;
+  return <section className="mx-auto w-full max-w-7xl px-6 py-16"><p className="font-mono text-xs tracking-[.2em] text-accent">EXHIBIT CATALOGUE</p><h1 className="mt-2 font-heading text-5xl">{category ? titleCase(category) : 'All aircraft'}</h1><div className="mt-8 flex flex-wrap gap-2"><Link href="/aircraft" className={`rounded-full px-4 py-2 text-sm ${!category ? 'bg-primary text-primary-foreground' : 'bg-background-alt text-muted-foreground'}`}>All</Link>{categories.map((item) => <Link key={item.slug} href={`/aircraft?category=${item.slug}`} className={`rounded-full px-4 py-2 text-sm ${category === item.slug ? 'bg-primary text-primary-foreground' : 'bg-background-alt text-muted-foreground hover:text-primary'}`}>{item.name}</Link>)}</div><div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">{exhibits.map((item) => <Link href={`/aircraft/${item.slug}`} key={item.slug} className="group overflow-hidden rounded-2xl border border-border bg-card transition hover:-translate-y-1 hover:shadow-xl"><AircraftArt item={item} className="h-52" /><div className="p-5"><div className="flex justify-between text-xs font-mono text-accent"><span>{item.introductionYear}</span><span>{item.status.toUpperCase()}</span></div><h2 className="mt-2 font-heading text-2xl group-hover:text-accent">{item.name}</h2><p className="mt-2 text-sm text-muted-foreground">{item.role}</p></div></Link>)}</div>{!exhibits.length && <p className="mt-10 text-muted-foreground">No exhibits found in this collection.</p>}</section>;
+}
